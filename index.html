@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronPulse Prototype</title>
+<meta name="description" content="Clickable UI prototype for a multi-branch gym management platform: staff console and member app.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F5F7;--ink:#101828;--muted:#475467;--card:#FFFFFF;--line:#E4E7EC;--dark:#0F1217;--lime:#C6F432}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+header.hero{background:var(--dark);color:#F2F4F7;padding:56px 0 48px}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.logo span.mark{width:36px;height:36px;border-radius:9px;background:var(--lime);display:flex;align-items:center;justify-content:center}
+h1,h2,h3{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-.01em}
+h1{font-size:clamp(32px,5vw,52px);margin:0 0 12px;line-height:1.05}
+.lede{font-size:18px;color:#C9CED6;max-width:640px;margin:0 0 28px;line-height:1.5}
+.cta{display:inline-flex;align-items:center;height:48px;padding:0 20px;border-radius:12px;background:var(--lime);color:var(--dark);font-weight:700;text-decoration:none}
+.note{margin-top:18px;font-size:13px;color:#98A2B3}
+section{padding:40px 0}
+h2{font-size:24px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;gap:6px;padding:20px;border-radius:16px;background:var(--card);border:1px solid var(--line);text-decoration:none;min-height:150px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--dark);transform:translateY(-2px)}
+.num{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.card h3{margin:0;font-size:19px}
+.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.open{margin-top:auto;font-size:13px;font-weight:700}
+.phones{display:flex;gap:24px;overflow-x:auto;padding:8px 2px 16px}
+.phone{flex:none;display:flex;flex-direction:column;gap:10px;text-decoration:none}
+.phone iframe{width:390px;height:844px;border:0;border-radius:36px;background:var(--dark);box-shadow:0 20px 50px rgba(15,18,23,.2);transform:scale(.72);transform-origin:top left;margin:0 -109px -236px 0;pointer-events:none}
+.phone strong{font-size:15px}
+footer{padding:32px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media (max-width:480px){.phone iframe{transform:scale(.6);margin:0 -156px -338px 0}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="logo"><span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1217" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg></span><strong style="font-family:'Space Grotesk';font-size:18px">IronPulse</strong></div>
+    <h1>Gym management,<br>from front desk to phone.</h1>
+    <p class="lede">A clickable prototype of the staff console and member app for a multi-branch gym platform. Covers memberships, billing, gate entry, classes, leads and member progress.</p>
+    <a class="cta" href="Main.dc.html">Start the demo →</a>
+    <p class="note">Design prototype with sample data. Nothing you click is saved.</p>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <h2>Staff console</h2>
+      <p class="sub">Web app for owners, managers, front desk and trainers. Use the sidebar to move between screens.</p>
+      <div class="grid">
+        <a class="card" href="Main.dc.html"><span class="num">01</span><h3>Dashboard</h3><p>Revenue, MRR, churn, live occupancy, renewals due, dues aging and lead funnel.</p><span class="open">Open →</span></a>
+        <a class="card" href="FrontDesk.dc.html"><span class="num">02</span><h3>Front desk check-in</h3><p>Live scan feed with allow/deny decisions and reasons. Click each scan.</p><span class="open">Open →</span></a>
+        <a class="card" href="Members.dc.html"><span class="num">03</span><h3>Members</h3><p>Status tabs, filters, bulk actions and a full member table.</p><span class="open">Open →</span></a>
+        <a class="card" href="MemberProfile.dc.html"><span class="num">04</span><h3>Member 360</h3><p>Plan, credits, attendance heatmap, billing, timeline, waivers and notes.</p><span class="open">Open →</span></a>
+        <a class="card" href="Sell.dc.html"><span class="num">05</span><h3>New sale</h3><p>Plan and add-ons with live GST totals and every payment method.</p><span class="open">Open →</span></a>
+        <a class="card" href="Schedule.dc.html"><span class="num">06</span><h3>Classes &amp; PT</h3><p>Week calendar, roster, waitlist and session actions.</p><span class="open">Open →</span></a>
+        <a class="card" href="Leads.dc.html"><span class="num">07</span><h3>Leads</h3><p>Pipeline board with response-time timers. Move leads between stages.</p><span class="open">Open →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <h2>Member app</h2>
+      <p class="sub">Phone app for members. Click a screen to open it full size.</p>
+      <div class="phones">
+        <a class="phone" href="AppHome.dc.html"><iframe src="AppHome.dc.html" title="Member app home preview" loading="lazy" tabindex="-1"></iframe><strong>08 · Home &amp; rotating QR pass</strong></a>
+        <a class="phone" href="AppBook.dc.html"><iframe src="AppBook.dc.html" title="Book a class preview" loading="lazy" tabindex="-1"></iframe><strong>09 · Book a class</strong></a>
+        <a class="phone" href="AppProgress.dc.html"><iframe src="AppProgress.dc.html" title="Progress preview" loading="lazy" tabindex="-1"></iframe><strong>10 · Progress</strong></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">IronPulse is a placeholder name. All people, numbers and prices are sample data.</div></footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Member app home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#C6F432}a:hover{color:#E3FA8F}
+.h{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-0.01em}
+.qa{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:14px;background:#1B2028;color:#E6E8EC;text-decoration:none;font-size:12px;font-weight:600;min-height:44px}
+.qa:hover{background:#252B35;color:#FFFFFF}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0;text-decoration:none;font-size:11px;font-weight:600;color:#98A2B3;min-height:44px;justify-content:center}
+.tb:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0F1217; color: #F2F4F7; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; overflow: hidden;">
+  <div style="flex: 1; overflow-y: auto; padding: 20px 20px 12px; display: flex; flex-direction: column; gap: 16px;">
+    <header style="display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-size: 13px; color: #98A2B3;">Thu, 12 Nov · Indiranagar</div>
+        <h1 class="h" style="margin: 2px 0 0; font-size: 24px; font-weight: 700;">Hey Aarav</h1>
+      </div>
+      <button type="button" aria-label="Notifications" style="width: 44px; height: 44px; border-radius: 999px; border: 0; background: #1B2028; color: #F2F4F7; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+      </button>
+    </header>
+
+    <section aria-label="Entry pass" style="background: #C6F432; color: #0F1217; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;">Entry pass</div>
+          <div class="h" style="font-size: 20px; font-weight: 700;">Annual · All-access</div>
+          <div style="font-size: 13px; font-weight: 500;">Valid till 14 Nov · renews via UPI AutoPay</div>
+        </div>
+        <span style="background: #0F1217; color: #C6F432; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px;">Active</span>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <div role="img" aria-label="Rotating entry QR code" style="background: #FFFFFF; padding: 10px; border-radius: 14px; display: grid; grid-template-columns: repeat(21, 6px); gap: 0; flex: none;">
+          <sc-for list="{{qr}}" as="q" hint-placeholder-count="441">
+            <div style="width: 6px; height: 6px; background: {{q}};"></div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+          <div style="font-size: 13px; font-weight: 600;">Hold near the turnstile scanner</div>
+          <div style="font-size: 12px;">Code refreshes in <strong>{{secs}}s</strong> — screenshots won't work.</div>
+          <div style="height: 6px; border-radius: 999px; background: rgba(15,18,23,.15);"><div style="height: 100%; border-radius: 999px; background: #0F1217; width: {{pct}};"></div></div>
+          <div style="font-size: 12px; font-weight: 600;">Works offline at the gate</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; gap: 12px;">
+      <div style="flex: 1; background: #1B2028; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 12px; color: #98A2B3; font-weight: 600;">How busy now</div>
+        <div class="h" style="font-size: 22px; font-weight: 700;">Moderate</div>
+        <div style="height: 6px; border-radius: 999px; background: #2B313B;"><div style="width: 48%; height: 100%; border-radius: 999px; background: #C6F432;"></div></div>
+        <div style="font-size: 12px; color: #98A2B3;">Quieter after 10 AM</div>
+      </div>
+      <div style="flex: 1; background: #1B2028; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 12px; color: #98A2B3; font-weight: 600;">This week</div>
+        <div class="h" style="font-size: 22px; font-weight: 700;">4 / 5 visits</div>
+        <div style="display: flex; gap: 4px;">
+          <span style="flex: 1; height: 6px; border-radius: 999px; background: #C6F432;"></span><span style="flex: 1; height: 6px; border-radius: 999px; background: #C6F432;"></span><span style="flex: 1; height: 6px; border-radius: 999px; background: #C6F432;"></span><span style="flex: 1; height: 6px; border-radius: 999px; background: #C6F432;"></span><span style="flex: 1; height: 6px; border-radius: 999px; background: #2B313B;"></span>
+        </div>
+        <div style="font-size: 12px; color: #98A2B3;">Streak · 6 weeks</div>
+      </div>
+    </section>
+
+    <section style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;">
+      <a href="AppBook.dc.html" class="qa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C6F432" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5h18v16H3zM16 3v4M8 3v4M3 10h18"></path></svg>Book</a>
+      <a href="#" class="qa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C6F432" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1L19.1 4.9"></path></svg>Freeze</a>
+      <a href="#" class="qa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C6F432" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 6h20v12H2zM2 10h20"></path></svg>Pay</a>
+      <a href="#" class="qa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C6F432" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>Refer</a>
+    </section>
+
+    <section style="background: #1B2028; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;"><div style="font-size: 14px; font-weight: 700;">Up next</div><a href="AppBook.dc.html" style="font-size: 13px; font-weight: 600;">All bookings</a></div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div style="width: 48px; text-align: center; padding: 6px 0; border-radius: 12px; background: #0F1217;"><div style="font-size: 11px; color: #98A2B3; font-weight: 700;">FRI</div><div class="h" style="font-size: 18px; font-weight: 700;">13</div></div>
+        <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">PT · Strength block B</div><div style="font-size: 12px; color: #98A2B3;">07:00 · Vikram S. · 4 of 12 left</div></div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div style="width: 48px; text-align: center; padding: 6px 0; border-radius: 12px; background: #0F1217;"><div style="font-size: 11px; color: #98A2B3; font-weight: 700;">SUN</div><div class="h" style="font-size: 18px; font-weight: 700;">15</div></div>
+        <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">Spin Express</div><div style="font-size: 12px; color: #98A2B3;">18:00 · Waitlist #2 · auto-book if a spot opens</div></div>
+      </div>
+    </section>
+
+    <section style="border: 1px solid #3A4250; border-radius: 16px; padding: 14px; display: flex; gap: 12px; align-items: center;">
+      <div style="flex: 1;"><div style="font-weight: 700; font-size: 14px;">Renew early, save 10%</div><div style="font-size: 12px; color: #98A2B3;">Code RENEW10 · ends 14 Nov</div></div>
+      <a href="#" style="height: 40px; padding: 0 14px; border-radius: 10px; background: #C6F432; color: #0F1217; font-weight: 700; font-size: 13px; display: flex; align-items: center; text-decoration: none;">Renew</a>
+    </section>
+  </div>
+
+  <nav aria-label="App" style="display: flex; padding: 6px 8px 18px; background: #151920; border-top: 1px solid #252B35;">
+    <a href="AppHome.dc.html" class="tb" aria-current="page" style="color: #C6F432;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-7 9 7v11H3z"></path></svg>Home</a>
+    <a href="AppBook.dc.html" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5h18v16H3zM16 3v4M8 3v4M3 10h18"></path></svg>Classes</a>
+    <a href="AppProgress.dc.html" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"></path></svg>Progress</a>
+    <a href="#" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg>Profile</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { t: 0 }; }
+  componentDidMount() { var self = this; this.timer = setInterval(function () { self.setState({ t: self.state.t + 1 }); }, 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    var t = this.state.t, win = Math.floor(t / 30), secs = 30 - (t % 30);
+    var N = 21, cells = [];
+    var seed = 1234567 + win * 7919;
+    function rnd() { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; }
+    function finder(r, c, r0, c0) {
+      var rr = r - r0, cc = c - c0;
+      if (rr < 0 || cc < 0 || rr > 6 || cc > 6) return null;
+      if (rr === 0 || rr === 6 || cc === 0 || cc === 6) return true;
+      if (rr >= 2 && rr <= 4 && cc >= 2 && cc <= 4) return true;
+      return false;
+    }
+    for (var r = 0; r < N; r++) for (var c = 0; c < N; c++) {
+      var f = finder(r, c, 0, 0); if (f === null) f = finder(r, c, 0, 14); if (f === null) f = finder(r, c, 14, 0);
+      var inQuiet = (r === 7 && (c < 8 || c > 12)) || (c === 7 && (r < 8 || r > 12)) || (r === 13 && c < 8) || (c === 13 && r < 8);
+      var on = f !== null ? f : (inQuiet ? false : rnd() > 0.5);
+      cells.push(on ? '#0F1217' : '#FFFFFF');
+    }
+    return { qr: cells, secs: secs, pct: Math.round(secs / 30 * 100) + '%' };
+  }
+}
+</script>
+</body>
+</html>

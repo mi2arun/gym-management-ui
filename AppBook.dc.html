@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a class</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#C6F432}a:hover{color:#E3FA8F}
+.h{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-0.01em}
+.day{flex:none;width:52px;height:68px;border-radius:14px;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:600 12px Inter,sans-serif;cursor:pointer}
+.chip{flex:none;height:36px;padding:0 14px;border-radius:999px;font:600 13px Inter,sans-serif;cursor:pointer}
+.act{height:40px;min-width:96px;padding:0 12px;border-radius:10px;font:700 13px Inter,sans-serif;cursor:pointer}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0;text-decoration:none;font-size:11px;font-weight:600;color:#98A2B3;min-height:44px;justify-content:center}
+.tb:hover{color:#FFFFFF}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0F1217; color: #F2F4F7; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; overflow: hidden;">
+  <div style="flex: 1; overflow-y: auto; padding: 20px 20px 12px; display: flex; flex-direction: column; gap: 16px;">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <h1 class="h" style="margin: 0; font-size: 24px; font-weight: 700;">Book a class</h1>
+      <div style="font-size: 12px; color: #98A2B3; text-align: right;"><strong style="color: #C6F432; font-size: 14px;">{{credits}}</strong> class credits<br>Indiranagar</div>
+    </header>
+
+    <div role="tablist" aria-label="Day" style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px;">
+      <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+        <button type="button" role="tab" class="day" aria-selected="{{d.sel}}" onClick="{{d.pick}}" style="background: {{d.bg}}; color: {{d.fg}};"><span>{{d.dow}}</span><span class="h" style="font-size: 20px; font-weight: 700;">{{d.date}}</span></button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; gap: 8px; overflow-x: auto;">
+      <sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+        <button type="button" class="chip" onClick="{{c.pick}}" style="background: {{c.bg}}; color: {{c.fg}}; border: 1px solid {{c.bd}};">{{c.label}}</button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <sc-for list="{{classes}}" as="k" hint-placeholder-count="5">
+        <article style="background: #1B2028; border-radius: 16px; padding: 14px; display: flex; gap: 12px; align-items: center;">
+          <div style="width: 52px; flex: none;">
+            <div class="h" style="font-size: 16px; font-weight: 700;">{{k.time}}</div>
+            <div style="font-size: 11px; color: #98A2B3;">{{k.dur}}</div>
+          </div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 700; font-size: 15px;">{{k.name}}</div>
+            <div style="font-size: 12px; color: #98A2B3;">{{k.coach}} · {{k.room}}</div>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: #C9CED6;"><span style="flex: 1; max-width: 90px; height: 4px; border-radius: 999px; background: #2B313B;"><span style="display: block; height: 100%; border-radius: 999px; background: {{k.barColor}}; width: {{k.fill}};"></span></span>{{k.spots}}</div>
+          </div>
+          <button type="button" class="act" onClick="{{k.act}}" aria-pressed="{{k.pressed}}" style="background: {{k.btnBg}}; color: {{k.btnFg}}; border: 1px solid {{k.btnBd}};">{{k.btn}}</button>
+        </article>
+      </sc-for>
+    </div>
+
+    <div style="font-size: 12px; color: #98A2B3; line-height: 1.5;">Cancel up to 2 hours before for a full credit back. Late cancels and no-shows use 1 credit. Waitlisted? We'll auto-book you and send a notification if a spot opens.</div>
+  </div>
+
+  <sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+    <div role="status" style="margin: 0 16px 10px; padding: 12px 14px; border-radius: 12px; background: #C6F432; color: #0F1217; font-size: 13px; font-weight: 600;">{{toast}}</div>
+  </sc-if>
+
+  <nav aria-label="App" style="display: flex; padding: 6px 8px 18px; background: #151920; border-top: 1px solid #252B35;">
+    <a href="AppHome.dc.html" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-7 9 7v11H3z"></path></svg>Home</a>
+    <a href="AppBook.dc.html" class="tb" aria-current="page" style="color: #C6F432;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5h18v16H3zM16 3v4M8 3v4M3 10h18"></path></svg>Classes</a>
+    <a href="AppProgress.dc.html" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"></path></svg>Progress</a>
+    <a href="#" class="tb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg>Profile</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { day: 0, cat: 'All', status: { 2: 'wait' }, toast: '' }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var D = [['Thu',12],['Fri',13],['Sat',14],['Sun',15],['Mon',16],['Tue',17],['Wed',18]];
+    var cats = ['All','Strength','Yoga','Cardio','Dance'];
+    var K = [
+      { id: 0, time: '06:30', dur: '60 min', name: 'Power Yoga', coach: 'Meera', room: 'Studio A', cat: 'Yoga', left: 3, cap: 24 },
+      { id: 1, time: '07:30', dur: '45 min', name: 'HIIT 45', coach: 'Karthik', room: 'Floor 2', cat: 'Strength', left: 2, cap: 20 },
+      { id: 2, time: '18:00', dur: '45 min', name: 'Spin Express', coach: 'Ananya', room: 'Cycle room', cat: 'Cardio', left: 0, cap: 28 },
+      { id: 3, time: '19:00', dur: '60 min', name: 'Zumba', coach: 'Leo', room: 'Studio A', cat: 'Dance', left: 19, cap: 30 },
+      { id: 4, time: '20:00', dur: '60 min', name: 'Strength Lab', coach: 'Vikram', room: 'Floor 1', cat: 'Strength', left: 3, cap: 12 }
+    ];
+    var booked = 0;
+    Object.keys(st.status).forEach(function (k) { if (st.status[k] === 'booked') booked++; });
+    var classes = K.filter(function (k) { return st.cat === 'All' || k.cat === st.cat; }).map(function (k) {
+      var s = st.status[k.id];
+      var left = k.left - (s === 'booked' ? 1 : 0);
+      var btn, bg, fg, bd;
+      if (s === 'booked') { btn = 'Booked ✓'; bg = '#0F1217'; fg = '#C6F432'; bd = '#C6F432'; }
+      else if (s === 'wait') { btn = 'Waitlist #2'; bg = '#0F1217'; fg = '#F2F4F7'; bd = '#3A4250'; }
+      else if (k.left === 0) { btn = 'Join waitlist'; bg = '#2B313B'; fg = '#F2F4F7'; bd = '#2B313B'; }
+      else { btn = 'Book'; bg = '#C6F432'; fg = '#0F1217'; bd = '#C6F432'; }
+      return Object.assign({}, k, {
+        spots: k.left === 0 ? 'Full · 2 waiting' : left + ' spots left',
+        fill: Math.round((k.cap - left) / k.cap * 100) + '%', barColor: left <= 3 ? '#F79009' : '#C6F432',
+        btn: btn, btnBg: bg, btnFg: fg, btnBd: bd, pressed: s ? 'true' : 'false',
+        act: function () {
+          var n = Object.assign({}, st.status), msg;
+          if (s) { delete n[k.id]; msg = k.name + ' cancelled · credit returned'; }
+          else if (k.left === 0) { n[k.id] = 'wait'; msg = 'Added to waitlist for ' + k.name; }
+          else { n[k.id] = 'booked'; msg = 'Booked ' + k.name + ' at ' + k.time + ' · 1 credit used'; }
+          self.setState({ status: n, toast: msg });
+        }
+      });
+    });
+    return {
+      credits: 6 - booked,
+      days: D.map(function (d, i) { var on = i === st.day; return { dow: d[0], date: d[1], sel: on ? 'true' : 'false', bg: on ? '#C6F432' : '#1B2028', fg: on ? '#0F1217' : '#F2F4F7', pick: function () { self.setState({ day: i }); } }; }),
+      cats: cats.map(function (c) { var on = c === st.cat; return { label: c, bg: on ? '#F2F4F7' : 'transparent', fg: on ? '#0F1217' : '#F2F4F7', bd: on ? '#F2F4F7' : '#3A4250', pick: function () { self.setState({ cat: c }); } }; }),
+      classes: classes,
+      hasToast: !!st.toast, toast: st.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

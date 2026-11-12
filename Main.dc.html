@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#101828;background:#F4F5F7}
+a{color:#1D4ED8}a:hover{color:#1E3A8A}
+.h{font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:-0.01em}
+.nav{display:flex;align-items:center;gap:12px;padding:10px 12px;min-height:24px;border-radius:10px;color:#C9CED6;text-decoration:none;font-size:14px;font-weight:500}
+.nav:hover{background:#1B2028;color:#FFFFFF}
+.nav-on,.nav-on:hover{background:#C6F432;color:#0F1217}
+.card{background:#FFFFFF;border:1px solid #E4E7EC;border-radius:14px;box-sizing:border-box}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 16px;border-radius:10px;font:600 14px Inter,sans-serif;border:1px solid #D0D5DD;background:#FFFFFF;color:#101828;cursor:pointer;text-decoration:none;white-space:nowrap;box-sizing:border-box}
+.btn:hover{background:#F9FAFB;color:#101828}
+.btn-p,.btn-p:hover{background:#0F1217;color:#FFFFFF;border-color:#0F1217}
+.btn-l,.btn-l:hover{background:#C6F432;border-color:#B5E01F;color:#0F1217}
+.btn-s{height:36px;padding:0 12px;font-size:13px}
+.badge{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-active{background:#DCFCE7;color:#14532D}.b-frozen{background:#DBEAFE;color:#1E3A8A}.b-due{background:#FFEDD5;color:#9A3412}.b-over{background:#FEE2E2;color:#991B1B}.b-exp{background:#EAECF0;color:#344054}
+.lbl{font-size:12px;font-weight:600;color:#475467;text-transform:uppercase;letter-spacing:.04em}
+.muted{color:#475467}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;font-weight:600;color:#475467;padding:10px 16px;border-bottom:1px solid #E4E7EC;background:#F9FAFB;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid #F2F4F7;white-space:nowrap}
+.inp{height:44px;border:1px solid #D0D5DD;border-radius:10px;padding:0 12px;font:14px Inter,sans-serif;background:#FFFFFF;color:#101828;box-sizing:border-box}
+.av{width:36px;height:36px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;background:#E8F9B8;color:#2B3A05;flex:none}
+.ic{width:20px;height:20px;flex:none}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh;">
+  <nav aria-label="Main" style="flex: 1 1 232px; max-width: 100%; background: #0F1217; padding: 20px 14px; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 20px;">
+      <div style="width: 34px; height: 34px; border-radius: 9px; background: #C6F432; display: flex; align-items: center; justify-content: center;">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#0F1217" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"></path></svg>
+      </div>
+      <div>
+        <div class="h" style="color: #FFFFFF; font-weight: 700; font-size: 17px;">IronPulse</div>
+        <div style="color: #98A2B3; font-size: 12px;">Staff console</div>
+      </div>
+    </div>
+    <sc-for list="{{nav}}" as="item" hint-placeholder-count="10">
+      <sc-if value="{{item.active}}" hint-placeholder-val="{{false}}">
+        <a href="{{item.href}}" class="nav nav-on" aria-current="page"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{item.icon}}"></path></svg>{{item.label}}</a>
+      </sc-if>
+      <sc-if value="{{item.idle}}" hint-placeholder-val="{{true}}">
+        <a href="{{item.href}}" class="nav"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{item.icon}}"></path></svg>{{item.label}}</a>
+      </sc-if>
+    </sc-for>
+    <div style="margin-top: auto; padding: 14px 12px; border-radius: 12px; background: #1B2028; display: flex; flex-direction: column; gap: 4px;">
+      <div style="color: #98A2B3; font-size: 12px;">Branch</div>
+      <div style="color: #FFFFFF; font-size: 14px; font-weight: 600;">Indiranagar · BLR-01</div>
+      <div style="color: #C6F432; font-size: 12px;">● Edge agent online</div>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; padding: 24px 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px;">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+      <div style="flex: 1 1 260px;">
+        <div class="muted" style="font-size: 14px;">Thursday, 12 Nov 2026</div>
+        <h1 class="h" style="margin: 2px 0 0; font-size: 28px;">Good morning, Priya</h1>
+      </div>
+      <label style="display: flex; flex: 0 1 320px;"><span style="position: absolute; left: -9999px;">Search members</span><input class="inp" style="width: 100%;" placeholder="Search name, phone, member ID  ( / )"></label>
+      <select class="inp" aria-label="Branch"><option>All branches</option><option selected>Indiranagar</option><option>Koramangala</option><option>HSR Layout</option></select>
+      <a href="Sell.dc.html" class="btn btn-l"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New sale</a>
+      <a href="FrontDesk.dc.html" class="btn btn-p">Check-in</a>
+    </header>
+
+    <section aria-label="Key metrics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px;">
+      <sc-for list="{{kpis}}" as="k" hint-placeholder-count="6">
+        <div class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 8px;">
+          <div class="lbl">{{k.label}}</div>
+          <div class="h" style="font-size: 28px; font-weight: 700;">{{k.value}}</div>
+          <div style="font-size: 13px; color: {{k.trendColor}}; font-weight: 600;">{{k.trend}}</div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 2 1 560px; min-width: 0;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+          <div>
+            <h2 class="h" style="margin: 0; font-size: 18px;">Revenue</h2>
+            <div class="muted" style="font-size: 13px;">Collected vs. recognized, last 12 months</div>
+          </div>
+          <div role="group" aria-label="Range" style="display: flex; gap: 4px; background: #F2F4F7; padding: 4px; border-radius: 10px;">
+            <sc-for list="{{ranges}}" as="r" hint-placeholder-count="3">
+              <button type="button" onClick="{{r.pick}}" style="height: 36px; padding: 0 12px; border: 0; border-radius: 8px; font: 600 13px Inter, sans-serif; cursor: pointer; background: {{r.bg}}; color: #101828;">{{r.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; align-items: flex-end; gap: 10px; height: 220px; padding-top: 8px; border-bottom: 1px solid #E4E7EC;">
+          <sc-for list="{{bars}}" as="b" hint-placeholder-count="12">
+            <div style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; min-width: 0;">
+              <div style="width: 100%; max-width: 34px; display: flex; gap: 3px; align-items: flex-end; height: 100%;">
+                <div title="Collected" style="flex: 1; background: #0F1217; border-radius: 4px 4px 0 0; height: {{b.c}};"></div>
+                <div title="Recognized" style="flex: 1; background: #C6F432; border-radius: 4px 4px 0 0; height: {{b.r}};"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: -8px;">
+          <sc-for list="{{bars}}" as="b" hint-placeholder-count="12">
+            <div class="muted" style="flex: 1 1 0; text-align: center; font-size: 12px; min-width: 0;">{{b.m}}</div>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 20px; font-size: 13px;" class="muted">
+          <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0F1217;"></span>Collected</span>
+          <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #C6F432; outline: 1px solid #A3C61A;"></span>Recognized</span>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 1 1 320px; min-width: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 class="h" style="margin: 0; font-size: 18px;">Live occupancy</h2>
+          <span class="badge b-active">Live</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 8px;">
+          <div class="h" style="font-size: 44px; font-weight: 700;">87</div>
+          <div class="muted" style="font-size: 14px;">in gym now · cap 180</div>
+        </div>
+        <div style="height: 12px; border-radius: 999px; background: #F2F4F7; overflow: hidden;">
+          <div style="width: 48%; height: 100%; background: #0F1217; border-radius: 999px;"></div>
+        </div>
+        <div class="lbl" style="margin-top: 4px;">Today by hour</div>
+        <div style="display: flex; align-items: flex-end; gap: 4px; height: 96px;">
+          <sc-for list="{{hours}}" as="h" hint-placeholder-count="18">
+            <div title="{{h.t}}" style="flex: 1 1 0; border-radius: 3px 3px 0 0; height: {{h.v}}; background: {{h.c}};"></div>
+          </sc-for>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px;" class="muted"><span>5 AM</span><span>12 PM</span><span>6 PM</span><span>11 PM</span></div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-top: 8px; border-top: 1px solid #F2F4F7;">
+          <div><div class="lbl">Check-ins</div><div class="h" style="font-size: 20px; font-weight: 700;">612</div></div>
+          <div><div class="lbl">Denied</div><div class="h" style="font-size: 20px; font-weight: 700;">9</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+      <div class="card" style="flex: 2 1 560px; min-width: 0; overflow: hidden;">
+        <div style="padding: 18px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+          <div>
+            <h2 class="h" style="margin: 0; font-size: 18px;">Renewals due · next 7 days</h2>
+            <div class="muted" style="font-size: 13px;">64 members · ₹6.8L at stake</div>
+          </div>
+          <button type="button" class="btn btn-s">Send WhatsApp reminder to all</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead><tr><th>Member</th><th>Plan</th><th>Ends</th><th>Auto-renew</th><th>Status</th><th><span style="position: absolute; left: -9999px;">Actions</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{renewals}}" as="m" hint-placeholder-count="5">
+                <tr>
+                  <td><a href="MemberProfile.dc.html" style="display: flex; align-items: center; gap: 10px; color: #101828; text-decoration: none; font-weight: 600;"><span class="av">{{m.ini}}</span><span>{{m.name}}<br><span class="muted" style="font-weight: 400; font-size: 12px;">{{m.phone}}</span></span></a></td>
+                  <td>{{m.plan}}</td>
+                  <td>{{m.ends}}</td>
+                  <td>{{m.auto}}</td>
+                  <td><span class="badge {{m.cls}}">{{m.status}}</span></td>
+                  <td style="text-align: right;"><a href="Sell.dc.html" class="btn btn-s">Renew</a></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 14px; flex: 1 1 320px; min-width: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h2 class="h" style="margin: 0; font-size: 18px;">Classes today</h2>
+          <a href="Schedule.dc.html" style="font-size: 13px; font-weight: 600;">Schedule</a>
+        </div>
+        <sc-for list="{{classes}}" as="c" hint-placeholder-count="5">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <div style="width: 56px; font-size: 13px; font-weight: 600;">{{c.time}}</div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px;"><span style="font-weight: 600;">{{c.name}}</span><span class="muted">{{c.booked}}</span></div>
+              <div style="height: 6px; border-radius: 999px; background: #F2F4F7;"><div style="height: 100%; border-radius: 999px; background: {{c.color}}; width: {{c.fill}};"></div></div>
+              <div class="muted" style="font-size: 12px;">{{c.coach}}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+        <h2 class="h" style="margin: 0; font-size: 18px;">Dues aging</h2>
+        <sc-for list="{{aging}}" as="a" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; justify-content: space-between; font-size: 14px;"><span>{{a.label}}</span><span style="font-weight: 600;">{{a.amt}}</span></div>
+            <div style="height: 8px; border-radius: 999px; background: #F2F4F7;"><div style="height: 100%; border-radius: 999px; background: {{a.color}}; width: {{a.w}};"></div></div>
+          </div>
+        </sc-for>
+        <button type="button" class="btn btn-s" style="align-self: flex-start;">Start dunning run</button>
+      </div>
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+        <h2 class="h" style="margin: 0; font-size: 18px;">Lead funnel · this month</h2>
+        <sc-for list="{{funnel}}" as="f" hint-placeholder-count="5">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 92px; font-size: 13px;" class="muted">{{f.label}}</div>
+            <div style="flex: 1; height: 28px; background: #F2F4F7; border-radius: 6px;"><div style="height: 100%; border-radius: 6px; background: #0F1217; width: {{f.w}};"></div></div>
+            <div style="width: 40px; text-align: right; font-weight: 600; font-size: 14px;">{{f.n}}</div>
+          </div>
+        </sc-for>
+        <a href="Leads.dc.html" style="font-size: 13px; font-weight: 600;">Open pipeline</a>
+      </div>
+      <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+        <h2 class="h" style="margin: 0; font-size: 18px;">Needs attention</h2>
+        <sc-for list="{{alerts}}" as="al" hint-placeholder-count="4">
+          <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #F2F4F7;">
+            <span class="badge {{al.cls}}">{{al.tag}}</span>
+            <div style="flex: 1; font-size: 14px;">{{al.text}}<div class="muted" style="font-size: 12px; margin-top: 2px;">{{al.when}}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { range: '12M' }; }
+  navList(active) {
+    var I = {
+      dash: 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z',
+      desk: 'M4 7V4h3M17 4h3v3M20 17v3h-3M7 20H4v-3M7 12h10',
+      mem: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',
+      lead: 'M3 4h18l-7 9v6l-4 2v-8z',
+      cal: 'M3 5h18v16H3zM16 3v4M8 3v4M3 10h18',
+      sell: 'M2 6h20v12H2zM2 10h20M6 15h4',
+      bill: 'M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h6',
+      inv: 'M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10',
+      rep: 'M4 20V10M10 20V4M16 20v-7M22 20H2',
+      set: 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4'
+    };
+    var L = [
+      ['dash','Dashboard','Main.dc.html'],['desk','Front desk','FrontDesk.dc.html'],['mem','Members','Members.dc.html'],
+      ['lead','Leads','Leads.dc.html'],['cal','Classes & PT','Schedule.dc.html'],['sell','New sale','Sell.dc.html'],
+      ['bill','Billing','#'],['inv','Inventory & POS','#'],['rep','Reports','#'],['set','Settings','#']
+    ];
+    return L.map(function (x) { return { icon: I[x[0]], label: x[1], href: x[2], active: x[0] === active, idle: x[0] !== active }; });
+  }
+  renderVals() {
+    var self = this;
+    var r = this.state.range;
+    var months = ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'];
+    var c = [58,62,70,66,72,69,74,80,77,84,88,92], rr = [55,60,64,65,68,70,71,75,76,79,83,86];
+    var n = r === '30D' ? 4 : r === '6M' ? 6 : 12;
+    var bars = months.slice(12 - n).map(function (m, i) { var k = 12 - n + i; return { m: n === 4 ? 'W' + (i + 1) : m, c: c[k] + '%', r: rr[k] + '%' }; });
+    var hv = [12,38,62,70,48,30,22,18,20,24,30,45,72,90,84,60,40,20];
+    var hours = hv.map(function (v, i) { return { v: v + '%', t: (i + 5) + ':00', c: i === 7 ? '#C6F432' : '#D0D5DD' }; });
+    return {
+      nav: this.navList('dash'),
+      ranges: ['30D','6M','12M'].map(function (x) { return { label: x, bg: x === r ? '#FFFFFF' : 'transparent', pick: function () { self.setState({ range: x }); } }; }),
+      bars: bars,
+      hours: hours,
+      kpis: [
+        { label: 'Revenue · MTD', value: '₹18.4L', trend: '▲ 12.4% vs Oct', trendColor: '#15803D' },
+        { label: 'Active members', value: '2,418', trend: '▲ 86 net this month', trendColor: '#15803D' },
+        { label: 'MRR', value: '₹14.9L', trend: '▲ 3.1%', trendColor: '#15803D' },
+        { label: 'Churn · 30d', value: '3.8%', trend: '▼ 0.6 pts', trendColor: '#15803D' },
+        { label: 'Outstanding dues', value: '₹2.1L', trend: '41 members', trendColor: '#B42318' },
+        { label: 'Lead conversion', value: '31%', trend: '▲ 4 pts', trendColor: '#15803D' }
+      ],
+      renewals: [
+        { ini: 'AR', name: 'Aarav Rao', phone: '+91 98450 12345', plan: 'Annual · All-access', ends: '14 Nov', auto: 'UPI AutoPay', status: 'Renews', cls: 'b-active' },
+        { ini: 'SK', name: 'Sneha Kulkarni', phone: '+91 99001 22334', plan: 'Quarterly · Gym', ends: '15 Nov', auto: 'Off', status: 'Expiring', cls: 'b-due' },
+        { ini: 'MI', name: 'Mohammed Imran', phone: '+91 97411 55667', plan: 'Monthly · Gym + Classes', ends: '16 Nov', auto: 'Card ••4242', status: 'Payment failed', cls: 'b-over' },
+        { ini: 'DN', name: 'Divya Nair', phone: '+91 90080 77889', plan: 'Half-yearly · Gym', ends: '17 Nov', auto: 'Off', status: 'Expiring', cls: 'b-due' },
+        { ini: 'RJ', name: 'Rohan Joshi', phone: '+91 98860 44221', plan: 'PT · 12 sessions', ends: '18 Nov', auto: 'Off', status: 'Frozen', cls: 'b-frozen' }
+      ],
+      classes: [
+        { time: '06:30', name: 'Power Yoga', coach: 'Meera · Studio A', booked: '24/24', fill: '100%', color: '#0F1217' },
+        { time: '07:30', name: 'HIIT 45', coach: 'Karthik · Floor 2', booked: '18/20', fill: '90%', color: '#0F1217' },
+        { time: '18:00', name: 'Spin Express', coach: 'Ananya · Cycle room', booked: '22/28', fill: '79%', color: '#0F1217' },
+        { time: '19:00', name: 'Zumba', coach: 'Leo · Studio A', booked: '11/30', fill: '37%', color: '#F79009' },
+        { time: '20:00', name: 'Strength Lab', coach: 'Vikram · Floor 1', booked: '9/12', fill: '75%', color: '#0F1217' }
+      ],
+      aging: [
+        { label: '0–7 days', amt: '₹84,200', w: '80%', color: '#0F1217' },
+        { label: '8–30 days', amt: '₹71,500', w: '68%', color: '#F79009' },
+        { label: '31–60 days', amt: '₹38,000', w: '36%', color: '#D92D20' },
+        { label: '60+ days', amt: '₹16,300', w: '15%', color: '#7A271A' }
+      ],
+      funnel: [
+        { label: 'New', n: 214, w: '100%' }, { label: 'Contacted', n: 168, w: '78%' },
+        { label: 'Trial', n: 102, w: '48%' }, { label: 'Negotiation', n: 81, w: '38%' }, { label: 'Won', n: 66, w: '31%' }
+      ],
+      alerts: [
+        { tag: 'Access', cls: 'b-over', text: '3 denied entries for dues pending at Turnstile 2', when: '12 min ago' },
+        { tag: 'Equipment', cls: 'b-due', text: 'Treadmill T-07 reported belt slip', when: '40 min ago' },
+        { tag: 'Stock', cls: 'b-due', text: 'Whey 2 kg Chocolate below reorder level (4 left)', when: '1 h ago' },
+        { tag: 'Approval', cls: 'b-frozen', text: 'Refund ₹4,500 requested by Rahul (front desk)', when: '2 h ago' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
